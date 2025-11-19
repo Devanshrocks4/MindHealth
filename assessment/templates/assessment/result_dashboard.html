@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Advanced Mental Health Dashboard{% endblock %}
+
+{% block content %}
+<!-- Particles Background -->
+<div id="particles-js" class="particles-container"></div>
+
+<!-- Parallax Background -->
+<div class="parallax-bg aurora-bg fixed inset-0 -z-10"></div>
+
+<div class="relative z-10 max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <!-- Header with Theme Selector -->
+    <div class="mb-8 text-center">
+        <div class="flex justify-center items-center mb-4">
+            <h1 class="text-4xl font-bold text-white mr-4">Your Mental Health Dashboard</h1>
+            <select id="theme-selector" class="advanced-glassmorphism px-4 py-2 rounded-lg text-gray-800 focus-ring">
+                {% for theme in themes %}
+                <option value="{{ theme.name }}">{{ theme.label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <p class="text-white">Track your progress and access resources tailored to your needs.</p>
+    </div>
+
+    <!-- Mascot Section -->
+    {% if mascot_reaction %}
+    <div class="advanced-glassmorphism rounded-lg p-6 mb-8 animate-fade-in text-center parallax-element" data-parallax="0.2">
+        <div class="flex items-center justify-center mb-4">
+            <div class="lottie-container w-24 h-24 mr-4" data-animation="{% static mascot_reaction.lottie_file %}"></div>
+            <div>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ mascot_reaction.emotion|title }} Mascot</h3>
+                <p class="mascot-message text-gray-700 text-lg">{{ mascot_reaction.message }}</p>
+            </div>
+        </div>
+        <button id="voice-guide-btn" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 focus-ring">
+            <i class="fas fa-volume-up mr-2"></i>Voice Guide
+        </button>
+    </div>
+    {% endif %}
+
+    <!-- Latest Assessments with Radial Charts -->
+    {% if latest_data %}
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+        {% if latest_data.phq9 %}
+        <div class="advanced-glassmorphism rounded-lg p-6 animate-fade-in draggable-card hover-lift">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                <svg class="svg-icon animated w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                Latest PHQ-9 Assessment
+            </h3>
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">{{ latest_data.phq9.score }}</div>
+                    <div class="text-lg text-gray-700">{{ latest_data.phq9.severity }}</div>
+                </div>
+                <div class="w-24 h-24 relative">
+                    <canvas id="phq9-radial-chart" data-score="{{ latest_data.phq9.score }}"></canvas>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="text-sm font-semibold text-gray-800">{{ latest_data.phq9.score }}/27</span>
+                    </div>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-2">{{ latest_data.phq9.date|date:"F j, Y" }}</p>
+            <p class="text-gray-700 text-sm">{{ latest_data.phq9.interpretation }}</p>
+        </div>
+        {% endif %}
+        {% if latest_data.gad7 %}
+        <div class="advanced-glassmorphism rounded-lg p-6 animate-fade-in draggable-card hover-lift">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                <svg class="svg-icon animated w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                Latest GAD-7 Assessment
+            </h3>
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-600 mb-2">{{ latest_data.gad7.score }}</div>
+                    <div class="text-lg text-gray-700">{{ latest_data.gad7.severity }}</div>
+                </div>
+                <div class="w-24 h-24 relative">
+                    <canvas id="gad7-radial-chart" data-score="{{ latest_data.gad7.score }}"></canvas>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="text-sm font-semibold text-gray-800">{{ latest_data.gad7.score }}/21</span>
+                    </div>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-2">{{ latest_data.gad7.date|date:"F j, Y" }}</p>
+            <p class="text-gray-700 text-sm">{{ latest_data.gad7.interpretation }}</p>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Achievements Grid -->
+    {% if achievements %}
+    <div class="advanced-glassmorphism rounded-lg p-6 mb-12 animate-fade-in">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+            <svg class="svg-icon w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Your Achievements
+        </h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            {% for achievement in achievements %}
+            <div class="advanced-glassmorphism rounded-lg p-4 text-center {% if achievement.unlocked %}bg-green-50{% else %}bg-gray-50{% endif %} hover-lift">
+                <div class="text-4xl mb-2 {% if achievement.unlocked %}text-yellow-500{% else %}text-gray-400{% endif %}">
+                    <i class="{{ achievement.icon }}"></i>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-2">{{ achievement.title }}</h4>
+                <p class="text-gray-600 text-sm mb-2">{{ achievement.description }}</p>
+                {% if not achievement.unlocked %}
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: {{ achievement.progress }}%"></div>
+                </div>
+                <p class="text-xs text-gray-500">{{ achievement.progress }}% Complete</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Assessment History -->
+    {% if history %}
+    <div class="advanced-glassmorphism rounded-lg p-6 mb-12 animate-fade-in draggable-card">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+            <svg class="svg-icon w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+            </svg>
+            Recent Assessments
+        </h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2 text-left">Date</th>
+                        <th class="px-4 py-2 text-left">Type</th>
+                        <th class="px-4 py-2 text-left">Score</th>
+                        <th class="px-4 py-2 text-left">Severity</th>
+                        <th class="px-4 py-2 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assessment in history %}
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="px-4 py-2">{{ assessment.created_at|date:"M j, Y" }}</td>
+                        <td class="px-4 py-2">{{ assessment.assessment_type }}</td>
+                        <td class="px-4 py-2">{{ assessment.total_score }}</td>
+                        <td class="px-4 py-2">
+                            {% if assessment.assessment_type == 'PHQ9' %}
+                                {% if assessment.total_score <= 4 %}Minimal depression{% elif assessment.total_score <= 9 %}Mild depression{% elif assessment.total_score <= 14 %}Moderate depression{% elif assessment.total_score <= 19 %}Moderately severe depression{% else %}Severe depression{% endif %}
+                            {% elif assessment.assessment_type == 'GAD7' %}
+                                {% if assessment.total_score <= 4 %}Minimal anxiety{% elif assessment.total_score <= 9 %}Mild anxiety{% elif assessment.total_score <= 14 %}Moderate anxiety{% else %}Severe anxiety{% endif %}
+                            {% else %}Unknown{% endif %}
+                        </td>
+                        <td class="px-4 py-2 space-x-2">
+                            <a href="{% url 'results' assessment.id %}" class="text-blue-600 hover:underline focus-ring">View</a>
+                            <a href="{% url 'download_pdf' assessment.id %}" class="text-green-600 hover:underline focus-ring">Download PDF</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Recommended Resources -->
+    {% if resources %}
+    <div class="advanced-glassmorphism rounded-lg p-6 mb-12 animate-fade-in draggable-card">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+            <svg class="svg-icon w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Recommended Resources
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            {% for resource in resources %}
+            <div class="advanced-glassmorphism rounded-lg p-4 hover-lift draggable-card">
+                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                    <svg class="svg-icon w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    {{ resource.title }}
+                </h4>
+                <p class="text-gray-600 mb-2">{{ resource.description }}</p>
+                {% if resource.url %}
+                <a href="{{ resource.url }}" class="text-blue-600 hover:underline focus-ring">Learn More</a>
+                {% endif %}
+                {% if resource.phone %}
+                <p class="text-gray-700">Call: {{ resource.phone }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Mental Health Support Chatbot -->
+    <div class="advanced-glassmorphism rounded-lg p-6 mb-12 animate-fade-in">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+            <svg class="svg-icon w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+            </svg>
+            Mental Health Support Chat
+        </h2>
+        <div id="chatbot-container" class="max-w-4xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold">Support Assistant</h3>
+                <button id="chatbot-toggle" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+            <div id="chat-window" class="h-96 overflow-y-auto mb-4 p-4 bg-gray-50 rounded-lg">
+                <div class="chat-message bot-message">
+                    <div class="message-bubble">
+                        <p>Hello! I'm here to support you on your mental health journey. How are you feeling today?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex">
+                <input type="text" id="chat-input" class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Type your message here...">
+                <button id="send-button" class="bg-blue-600 text-white px-6 py-2 rounded-r-lg hover:bg-blue-700 transition duration-300">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="mt-2 text-sm text-gray-500">
+                <p>Quick topics: <span class="quick-topic cursor-pointer hover:text-blue-600" data-topic="coping">coping strategies</span> | <span class="quick-topic cursor-pointer hover:text-blue-600" data-topic="resources">resources</span> | <span class="quick-topic cursor-pointer hover:text-blue-600" data-topic="emergency">emergency help</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAB (Floating Action Button) -->
+    <div class="fab focus-ring" aria-label="Quick Actions">
+        <i class="fas fa-plus"></i>
+        <div class="fab-menu">
+            <a href="{% url 'phq9' %}" class="fab-item" title="Retake PHQ-9">
+                <i class="fas fa-brain text-blue-600"></i>
+            </a>
+            <a href="{% url 'gad7' %}" class="fab-item" title="Retake GAD-7">
+                <i class="fas fa-heart text-green-600"></i>
+            </a>
+            <a href="{% url 'profile' %}" class="fab-item" title="View Profile">
+                <i class="fas fa-user text-purple-600"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Floating Chatbot Icon -->
+    <div id="chatbot-icon" class="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition duration-300 cursor-pointer z-50">
+        <i class="fas fa-comments text-2xl"></i>
+    </div>
+</div>
+{% endblock %}

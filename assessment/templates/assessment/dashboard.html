@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Assessment Dashboard{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-12">
+    <div class="glassmorphism rounded-lg p-8 animate-fade-in">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Your Assessment Dashboard</h1>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <a href="{% url 'phq9' %}" class="glassmorphism rounded-lg p-6 hover:shadow-lg transition duration-300">
+                <i class="fas fa-brain text-3xl text-blue-600 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Take PHQ-9 Assessment</h3>
+                <p class="text-gray-600">Assess your depression symptoms</p>
+            </a>
+            <a href="{% url 'gad7' %}" class="glassmorphism rounded-lg p-6 hover:shadow-lg transition duration-300">
+                <i class="fas fa-heart text-3xl text-green-600 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Take GAD-7 Assessment</h3>
+                <p class="text-gray-600">Evaluate your anxiety levels</p>
+            </a>
+        </div>
+
+        {% if assessments %}
+        <h2 class="text-2xl font-semibold mb-4">Previous Assessments</h2>
+        <div class="space-y-4">
+            {% for assessment in assessments %}
+                <div class="glassmorphism rounded-lg p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg font-semibold">{{ assessment.assessment_type }}</h3>
+                            <p class="text-gray-600">Score: {{ assessment.total_score }} - {{ assessment.get_severity_display }}</p>
+                            <p class="text-sm text-gray-500">{{ assessment.created_at|date:"F j, Y" }}</p>
+                        </div>
+                        <a href="{% url 'results' assessment.id %}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300">
+                            View Results
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-8">
+            <p class="text-gray-600 text-lg">You haven't taken any assessments yet.</p>
+            <p class="text-gray-500">Start with a PHQ-9 or GAD-7 assessment above.</p>
+        </div>
+        {% endif %}
+
+        <!-- Mental Health Support Chatbot -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-semibold mb-4">Mental Health Support Chat</h2>
+            <div id="chatbot-container" class="glassmorphism rounded-lg p-6 max-w-4xl mx-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">Support Assistant</h3>
+                    <button id="chatbot-toggle" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <div id="chat-window" class="h-96 overflow-y-auto mb-4 p-4 bg-gray-50 rounded-lg">
+                    <div class="chat-message bot-message">
+                        <div class="message-bubble">
+                            <p>Hello! I'm here to support you on your mental health journey. How are you feeling today?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <input type="text" id="chat-input" class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Type your message here...">
+                    <button id="send-button" class="bg-blue-600 text-white px-6 py-2 rounded-r-lg hover:bg-blue-700 transition duration-300">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="mt-2 text-sm text-gray-500">
+                    <p>Quick topics: <span class="quick-topic" data-topic="coping">coping strategies</span> | <span class="quick-topic" data-topic="resources">resources</span> | <span class="quick-topic" data-topic="emergency">emergency help</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chatbot Icon -->
+    <div id="chatbot-icon" class="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition duration-300 cursor-pointer z-50">
+        <i class="fas fa-comments text-2xl"></i>
+    </div>
+</div>
+{% endblock %}
