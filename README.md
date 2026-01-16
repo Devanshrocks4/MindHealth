@@ -62,6 +62,48 @@
 
 7. Access the application at `http://127.0.0.1:8000/`
 
+## Deployment
+
+The easiest way to host this Django application is using **Railway** (free tier available).
+
+### Steps to Deploy on Railway:
+
+1. **Push your code to GitHub**:
+   - Create a new repository on GitHub.
+   - Commit and push your code to the repository.
+
+2. **Sign up for Railway**:
+   - Go to [railway.app](https://railway.app) and create an account.
+
+3. **Connect your GitHub repository**:
+   - In Railway dashboard, click "New Project" > "Deploy from GitHub repo".
+   - Select your repository.
+
+4. **Automatic Deployment**:
+   - Railway will automatically detect it's a Django app and set up the environment.
+   - It will install dependencies from `requirements.txt` and run migrations.
+
+5. **Set Environment Variables**:
+   - In Railway project settings, add the following variables:
+     - `SECRET_KEY`: A random secret key (generate one or use a secure string).
+     - `DEBUG`: `False`
+     - `ALLOWED_HOSTS`: Your Railway domain (e.g., `yourapp.railway.app`)
+     - `OPENAI_API_KEY`: Your OpenAI API key (if using AI features).
+   - Railway provides `DATABASE_URL` automatically for PostgreSQL.
+
+6. **Access your app**:
+   - Once deployed, Railway will provide a URL to access your application.
+
+### Alternative: Heroku Deployment
+
+If you prefer Heroku:
+
+1. Install Heroku CLI.
+2. `heroku create your-app-name`
+3. `git push heroku main`
+4. Set config vars: `heroku config:set SECRET_KEY=yourkey DEBUG=False ALLOWED_HOSTS=yourapp.herokuapp.com OPENAI_API_KEY=yourkey`
+5. Run migrations: `heroku run python manage.py migrate`
+
 ## Usage
 
 1. **Register/Login**: Create an account or log in to access assessments
