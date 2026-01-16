@@ -139,7 +139,7 @@ Animated character that reacts to your scores:
 ```
 😊 If average score ≤ 3:  "You're doing great! Keep it up."
 😐 If average score 3-7:   "Things are stable. Take care of yourself."
-😟 If average score 7-12:  "Consider reaching out for support."
+
 🤝 If average score 12+:   "You're not alone. Get professional help."
 ```
 
