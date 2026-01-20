@@ -9,7 +9,7 @@
 ## Tasks
 
 ### 1. Prepare for Deployment
-- [ ] Ensure all code is committed and pushed to GitHub repository
+- [x] Ensure all code is committed and pushed to GitHub repository
 - [ ] Generate a secure SECRET_KEY for production
 
 ### 2. Create Railway Account and Project
