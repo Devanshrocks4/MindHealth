@@ -172,6 +172,8 @@ if not DEBUG:  # Only in production
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_SSL_REDIRECT = False  # Railway handles SSL redirect
+    CSRF_COOKIE_SECURE = False  # Allow CSRF cookie over Railway's HTTPS
+    SESSION_COOKIE_SECURE = False  # Allow session cookie over Railway's HTTPS
 
 # Optimize query logging (disable in production)
 if DEBUG:
