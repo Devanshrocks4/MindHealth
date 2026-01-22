@@ -1,25 +1,25 @@
 # Core Django dependencies (Python 3.9 compatible)
-asgiref==3.8.1
+asgiref==3.7.2
 Django==4.2.16
-sqlparse==0.5.1
-tzdata==2024.2
+sqlparse==0.4.4
+tzdata==2023.4
 
 # Database and deployment
-dj-database-url==2.2.0
-psycopg2-binary==2.9.10
-whitenoise==6.7.0
-gunicorn==23.0.0
+dj-database-url==2.1.0
+psycopg2-binary==2.9.9
+whitenoise==6.6.0
+gunicorn==21.2.0
 
 # Image and PDF processing
-Pillow==10.4.0
-reportlab==4.2.5
+Pillow==10.2.0
+reportlab==4.0.9
 
 # HTTP and utilities
-charset-normalizer==3.4.0
-urllib3==2.2.3
+charset-normalizer==3.3.2
+urllib3==2.1.0
 
 # OpenAI integration
-openai==1.54.3
+openai==1.12.0
 
 # Additional utilities
-requests==2.32.3
+requests==2.31.0
