@@ -1,12 +1,25 @@
-asgiref==3.10.0
-charset-normalizer==3.4.4
-Django==5.2.8
-gunicorn==21.2.0
-pillow==12.0.0
-reportlab==4.4.4
-sqlparse==0.5.3
-tzdata==2025.2
-openai==1.51.2
-whitenoise==6.6.0
-dj-database-url==2.1.0
-psycopg2-binary==2.9.9
+# Core Django dependencies (Python 3.9 compatible)
+asgiref==3.8.1
+Django==5.1.4
+sqlparse==0.5.1
+tzdata==2024.2
+
+# Database and deployment
+dj-database-url==2.2.0
+psycopg2-binary==2.9.10
+whitenoise==6.7.0
+gunicorn==23.0.0
+
+# Image and PDF processing
+Pillow==10.4.0
+reportlab==4.2.5
+
+# HTTP and utilities
+charset-normalizer==3.4.0
+urllib3==2.2.3
+
+# OpenAI integration
+openai==1.54.3
+
+# Additional utilities
+requests==2.32.3
