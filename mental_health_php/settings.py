@@ -91,21 +91,21 @@ WSGI_APPLICATION = 'mental_health_php.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# Caching configuration
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'mental-health-cache',
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000
-        },
-        'TIMEOUT': 300,  # 5 minutes default timeout
-    }
-}
+# Caching configuration (disabled for compatibility)
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+#         'LOCATION': 'mental-health-cache',
+#         'OPTIONS': {
+#             'MAX_ENTRIES': 1000
+#         },
+#         'TIMEOUT': 300,  # 5 minutes default timeout
+#     }
+# }
 
-# Session caching
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-SESSION_CACHE_ALIAS = 'default'
+# Session configuration
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# SESSION_CACHE_ALIAS = 'default'
 
 if dj_database_url:
     DATABASES = {
