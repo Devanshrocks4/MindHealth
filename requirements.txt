@@ -1,6 +1,6 @@
 # Core Django dependencies (Python 3.9 compatible)
 asgiref==3.8.1
-Django==5.1.4
+Django==4.2.16
 sqlparse==0.5.1
 tzdata==2024.2
 
