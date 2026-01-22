@@ -28,6 +28,8 @@ def login_view(request):
                 return redirect('home')
             else:
                 messages.error(request, 'Invalid username or password.')
+        else:
+            messages.error(request, 'Please correct the errors below.')
     else:
         form = AuthenticationForm()
     return render(request, 'users/login.html', {'form': form})
