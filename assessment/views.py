@@ -294,7 +294,7 @@ def get_mascot_reaction(phq9_score, gad7_score):
         }
     elif avg_score <= 12:
         return {
-            'emotion': 'concerned',
+            'emotion': 'caring',
             'message': "It might be a good time to reach out for support.",
             'lottie_file': 'concerned_mascot.json',
             'color': '#F97316'
@@ -338,7 +338,7 @@ def get_achievements(user):
     else:
         achievements.append({
             'title': 'Consistent Tracker',
-            'description': 'Completed 5 assessments',
+            'description': 'Complete 5 assessments',
             'icon': 'fas fa-calendar-check',
             'unlocked': False,
             'progress': (total_assessments / 5) * 100
