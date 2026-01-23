@@ -14,6 +14,6 @@
 ## Steps
 - [x] Modify Procfile to add release: python manage.py collectstatic --noinput
 - [x] Update base.html to use favicon.svg instead of favicon.ico.
-- [ ] Create a simple favicon.svg in static/ directory. (Tool failed, user can add manually)
+- [x] Create a simple favicon.svg in static/ directory.
 - [ ] Commit and push changes to GitHub.
 - [ ] Redeploy on Railway to test fixes.
