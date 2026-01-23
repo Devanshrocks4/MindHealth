@@ -259,6 +259,67 @@ button, a {
         bottom: 1rem;
         right: 1rem;
     }
+
+    /* Improve text readability on small screens */
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Adjust navigation for mobile */
+    nav .flex.items-center.space-x-4 {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav .flex.items-center.space-x-4 a {
+        margin: 0.5rem 0;
+    }
+
+    /* Make cards stack vertically on mobile */
+    .grid.gap-6.md\\:grid-cols-3 {
+        grid-template-columns: 1fr;
+    }
+
+    /* Adjust hero section */
+    section.relative.overflow-hidden .max-w-6xl.mx-auto.px-6.py-20 {
+        padding: 2rem 1rem;
+    }
+
+    section.relative.overflow-hidden h1 {
+        font-size: 2.5rem;
+    }
+
+    /* Footer adjustments */
+    footer .flex.flex-col.md\\:flex-row {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 0.875rem;
+    }
+
+    .text-5xl.md\\:text-6xl {
+        font-size: 2.5rem;
+    }
+
+    .px-6 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
 
 /* Accessibility improvements */
