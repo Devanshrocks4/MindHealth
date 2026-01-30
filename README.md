@@ -168,7 +168,7 @@ MindHealth is optimized for **Railway** deployment with automatic scaling and Po
    ```
 
 4. **Access Your App**
-   Railway provides your live URL (e.g., `https://mindhealth.up.railway.app`)
+  Railway provides your live URL (e.g., `https://mentalhealth.up.railway.app`)
 
 ### Alternative: Heroku
 
@@ -179,6 +179,20 @@ git push heroku main
 heroku config:set SECRET_KEY=yourkey DEBUG=False ALLOWED_HOSTS=yourapp.herokuapp.com
 heroku run python manage.py migrate
 ```
+
+---
+
+## 🔧 Troubleshooting
+
+### DNS Resolution Issues
+If your deployed website shows "DNS PROBE FINISHED NXDOMAIN" on some devices (e.g., mobile) but works on others (e.g., laptop):
+
+- **Wait for Propagation**: DNS changes can take up to 48 hours to propagate globally. The issue often resolves itself over time.
+- **Change DNS Resolver**: On mobile devices, try switching to a public DNS like Google DNS (8.8.8.8) or Cloudflare DNS (1.1.1.1) in your network settings.
+- **Check Railway Dashboard**: Ensure your Railway app is running and the domain is correctly assigned.
+- **Clear DNS Cache**: On your device, clear the DNS cache or restart your router/modem.
+
+If issues persist, check Railway's status page or contact their support.
 
 ---
 

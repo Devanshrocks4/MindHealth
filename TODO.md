@@ -1,6 +1,7 @@
 - [x] Move favicon.svg from static/ to static/images/
 - [x] Update templates/base.html to reference 'images/favicon.svg'
 - [x] Remove favicon link entirely to avoid manifest issues
+- [x] Change STATICFILES_STORAGE to CompressedStaticFilesStorage to avoid manifest problems
 - [x] Commit and push changes to GitHub repo https://github.com/Devanshrocks4/MindHealth
 - [x] Railway will automatically redeploy and regenerate staticfiles manifest
-- [ ] Test the website at https://mentalhealth.up.railway.app/ to confirm no more 500 error
+- [ ] Test the website at https://mentalhealth.up.railway.app/ to confirm no more 500 error and DNS resolution on mobile
